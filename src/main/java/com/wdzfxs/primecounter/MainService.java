@@ -4,7 +4,10 @@ import com.wdzfxs.primecounter.generator.Generator;
 import com.wdzfxs.primecounter.generator.PrimeIntegers;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -34,24 +37,29 @@ public class MainService {
         }
 
         FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         ObjectInputStream objectInputStream = null;
-        try {
-            objectInputStream = new ObjectInputStream(fileInputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         PrimeIntegers primeIntegers = null;
         try {
+            fileInputStream = new FileInputStream(file);
+            objectInputStream = new ObjectInputStream(fileInputStream);
             primeIntegers = (PrimeIntegers) Objects.requireNonNull(objectInputStream).readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (objectInputStream != null) {
+                    objectInputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (fileInputStream != null) {
+                    fileInputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         this.integers = Objects.requireNonNull(primeIntegers).getIntegers();
