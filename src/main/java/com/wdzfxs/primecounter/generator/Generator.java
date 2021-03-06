@@ -12,12 +12,12 @@ import java.util.stream.IntStream;
 public class Generator {
 
     @Value("${maxIntValue}")
-    private int maxExpectedIntAsString;
+    private int maxExpectedInt;
 
 
     public void generate() throws IOException {
         System.out.println("Начал выделять память на массив");
-        PrimeIntegers primeIntegers = new PrimeIntegers(maxExpectedIntAsString);
+        PrimeIntegers primeIntegers = new PrimeIntegers(maxExpectedInt);
         System.out.println("Закончил выделять память на массив");
 
         System.out.println("Начал заполнять массив");
