@@ -12,7 +12,7 @@ import java.util.Objects;
 @Service
 public class MainService {
 
-    private final boolean[] primeIntegers;
+    private final boolean[] integers;
     public boolean ready = false;
 
     public MainService(Generator generator) {
@@ -54,7 +54,7 @@ public class MainService {
             e.printStackTrace();
         }
 
-        this.primeIntegers = Objects.requireNonNull(primeIntegers).getIntegers();
+        this.integers = Objects.requireNonNull(primeIntegers).getIntegers();
     }
 
     public HashMap<Integer, Integer> calculate(List<Integer> integerList) {
@@ -73,7 +73,7 @@ public class MainService {
                 }
             }
 
-            if (primeIntegers[integer]) {
+            if (integers[integer]) {
                 if (counter.containsKey(integer)) {
                     counter.put(integer, counter.get(integer) + 1);
                 } else {
